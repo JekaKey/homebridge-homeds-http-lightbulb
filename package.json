@@ -1,6 +1,6 @@
 {
     "name": "homebridge-homeds-http-lightbulb",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "HTTP Lightbulb",
     "license": "MIT",
     "author": "jekakey",

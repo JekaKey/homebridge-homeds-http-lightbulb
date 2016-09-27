@@ -38,7 +38,8 @@ HomeDSAccessory.prototype = {
         setTimeout(this.monitorState.bind(this), 10000);
     },
     monitorState: function() {
-        this.log("monitor state");
+        // this.log("monitor state");
+        
         request.get({
             url: this.stateUrl
         }, function(err, response, body) {
@@ -62,7 +63,6 @@ HomeDSAccessory.prototype = {
 
     },
     getState: function(callback) {
-
 
         this.log("Getting current state...");
         request.get({
