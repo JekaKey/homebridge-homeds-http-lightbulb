@@ -38,7 +38,7 @@ HomeDSAccessory.prototype = {
         setTimeout(this.monitorState.bind(this), 10000);
     },
     monitorState: function() {
-
+        this.log("monitor state");
         request.get({
             url: this.stateUrl
         }, function(err, response, body) {
@@ -87,9 +87,11 @@ HomeDSAccessory.prototype = {
     setState: function(state, callback) {
 
         this.log('Set lamp state to: ' + state);
+        var url = (state == 1) ? this.onUrl : this.offUrl;
+        this.log("URL: "+url);
 
         request.get({
-            url: (state == 1) ? this.onUrl : this.offUrl
+            url: url
         }, function(err, response, body) {
           this.log('Server response: '+body);
             if (!err && response.statusCode == 200) {
