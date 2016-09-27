@@ -71,13 +71,14 @@ HomeDSAccessory.prototype = {
             if (!err && response.statusCode == 200) {
                 var state = 1;
 
-                if (body == 'false')
-                    state = 0;
+                if (body == 'false') {
+                  state = 0;
+                }
 
                 callback(null, state);
 
             } else {
-                this.log("Error server set state");
+                this.log("Error server get state",err);
                 callback(null);
             }
         }.bind(this));
@@ -90,11 +91,11 @@ HomeDSAccessory.prototype = {
         request.get({
             url: (state == 1) ? this.onUrl : this.offUrl
         }, function(err, response, body) {
+          this.log('Server response: '+body);
             if (!err && response.statusCode == 200) {
-
                 callback(null);
             } else {
-                this.log("Error server set state");
+                this.log("Error server set state",err);
                 callback(null);
             }
         }.bind(this));
