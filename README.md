@@ -2,11 +2,11 @@
 
 ```js
 {
-    "accessory": "HomeDSHttpGarageDoor",
-    "name": "Гараж",
-    "stateUrl": "http://localhost:3000/stateDoor",
-    "openUrl": "http://localhost:3000/openDoor",
-    "closeUrl": "http://localhost:3000/closeDoor",
-    "poolingInterval": 2000
+   "accessory": "HomeDSHttpLightbulb",
+   "name": "Свет",
+   "stateUrl": "http://localhost:3000/getLampState",
+   "onUrl": "http://localhost:3000/lampOn",
+   "offUrl": "http://localhost:3000/lampOff",
+   "poolingInterval": 2000
 }
 ```
