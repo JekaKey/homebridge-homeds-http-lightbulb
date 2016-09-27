@@ -88,7 +88,7 @@ HomeDSAccessory.prototype = {
         this.log('Set lamp state to: ' + state);
 
         request.get({
-            url: (state == 1) ? this.openUrl : this.closeUrl
+            url: (state == 1) ? this.onUrl : this.offUrl
         }, function(err, response, body) {
             if (!err && response.statusCode == 200) {
 
