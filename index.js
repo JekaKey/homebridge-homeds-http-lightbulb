@@ -40,7 +40,7 @@ HomeDSAccessory.prototype = {
     monitorState: function() {
         // this.log("monitor state");
         
-        request.get({
+        request.post({
             url: this.stateUrl
         }, function(err, response, body) {
             if (!err && response.statusCode == 200) {
@@ -65,13 +65,15 @@ HomeDSAccessory.prototype = {
     getState: function(callback) {
 
         this.log("Getting current state...");
-        request.get({
+        request.post({
             url: this.stateUrl
         }, function(err, response, body) {
             if (!err && response.statusCode == 200) {
                 var state = 1;
 
-                if (body == 'false') {
+                var response = JSON.parse(body)
+
+                if (body == response.result) {
                   state = 0;
                 }
 
@@ -90,7 +92,7 @@ HomeDSAccessory.prototype = {
         var url = (state == 1) ? this.onUrl : this.offUrl;
         this.log("URL: "+url);
 
-        request.get({
+        request.post({
             url: url
         }, function(err, response, body) {
           this.log('Server response: '+body);
