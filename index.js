@@ -16,10 +16,11 @@ function HomeDSAccessory(log, config) {
     this.stateUrl = config["stateUrl"];
     this.onUrl = config["onUrl"];
     this.offUrl = config["offUrl"];
-
     this.poolingInterval = config["poolingInterval"];
+    this.method = config["method"];
 
     this.lightservice = new Service.Lightbulb(this.name, this.name);
+    if (this.method == undefined) {this.method = 'get'}
 
     this.On = this.lightservice.getCharacteristic(On);
 
@@ -39,15 +40,17 @@ HomeDSAccessory.prototype = {
     },
     monitorState: function() {
         // this.log("monitor state");
-        
-        request.post({
+
+        request[this.method]({
             url: this.stateUrl
         }, function(err, response, body) {
             if (!err && response.statusCode == 200) {
                 var state = 1;
 
-                if (body == 'false') {
-                    state = 0;
+                var response = JSON.parse(body)
+
+                if (response.result == "false") {
+                  state = 0;
                 }
 
                 if (state != this.On.value) {
@@ -65,7 +68,7 @@ HomeDSAccessory.prototype = {
     getState: function(callback) {
 
         this.log("Getting current state...");
-        request.post({
+        request[this.method]({
             url: this.stateUrl
         }, function(err, response, body) {
             if (!err && response.statusCode == 200) {
@@ -73,7 +76,7 @@ HomeDSAccessory.prototype = {
 
                 var response = JSON.parse(body)
 
-                if (body == response.result) {
+                if (response.result == "false") {
                   state = 0;
                 }
 
@@ -92,7 +95,7 @@ HomeDSAccessory.prototype = {
         var url = (state == 1) ? this.onUrl : this.offUrl;
         this.log("URL: "+url);
 
-        request.post({
+        request[this.method]({
             url: url
         }, function(err, response, body) {
           this.log('Server response: '+body);
