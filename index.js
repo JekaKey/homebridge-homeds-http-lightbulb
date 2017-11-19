@@ -36,7 +36,7 @@ function HomeDSAccessory(log, config) {
 HomeDSAccessory.prototype = {
 
     init: function() {
-        setTimeout(this.monitorState.bind(this), 10000);
+        setTimeout(this.monitorState.bind(this), 2000);
     },
     monitorState: function() {
         // this.log("monitor state");
